@@ -1,5 +1,6 @@
 package algorithm;
 
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -91,12 +92,53 @@ public class Sort {
         merge(list, left, mid, right);
     }
 
+    public static int recursionBinarySearch(List<Comparable> list, int left, int right, Comparable key) {
+//        System.out.println("left:" + left + " right:" + right);
+        if ( key.compareTo(list.get(left)) < 0 ||
+                key.compareTo(list.get(right)) > 0 ||
+        left >= right) {
+            if (key.equals(list.get(left))) {
+                return left;
+            } else {
+                return -1;
+            }
+        }
+        int mid = (right - left) / 2 + left;
+        if (key.compareTo(list.get(mid)) <= 0) {
+            return recursionBinarySearch(list, left, mid, key);
+        }else {
+            return  recursionBinarySearch(list, mid + 1, right,  key);
+        }
+    }
 
-    public static void main(String[] args) {
-        List<Comparable> list = Arrays.asList(5, 1, 2, 8, 3, 6, 9);
+    public static int binarySearch(List<Comparable> list, int left, int right, Comparable key) {
+        while (left < right && key.compareTo(list.get(left)) >= 0 && key.compareTo(list.get(right)) <= 0) {
+            int mid = (right - left ) /2 + left;
+            if (key.compareTo(list.get(mid)) <= 0) {
+                right = mid;
+            }else{
+                left = mid + 1;
+            }
+        }
+        if (key.equals(list.get(left))) {
+            return left;
+        } else {
+            return  -1;
+        }
+    }
+
+
+public static void main(String[] args) {
+        List<Comparable> list = Arrays.asList(5, 1, 2, 8, 3, 6, 9, 1, 2 , 2);
 //        quickSort(list,0, list.size() - 1);
 //        loopQuickSort(list, 0, list.size() - 1);
         mergeSort(list,0, list.size() - 1);
         System.out.println(list);
+        System.out.println(recursionBinarySearch(list, 0, list.size() - 1, 5));
+        System.out.println(recursionBinarySearch(list, 0, list.size() - 1, 7));
+        System.out.println(recursionBinarySearch(list, 0, list.size() - 1, 2));
+        System.out.println(binarySearch(list, 0, list.size() - 1, 5));
+        System.out.println(binarySearch(list, 0, list.size() - 1, 7));
+        System.out.println(binarySearch(list, 0, list.size() - 1, 2));
     }
 }
