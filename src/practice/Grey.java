@@ -3,7 +3,7 @@ package practice;
 import java.util.Arrays;
 
 public class Grey {
-
+//
     public static String[] getGrey(int n) {
         if (n < 1) {
             return new String[]{""};
