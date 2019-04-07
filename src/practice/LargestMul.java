@@ -49,6 +49,46 @@ public class LargestMul {
         return x * y * z;
     }
 
+    public static Long solveNew(Long[] a) {
+        if (a == null || a.length < 3) {
+            return 0L;
+        }
+        Long max1 = Long.MIN_VALUE;
+        Long max2 = Long.MIN_VALUE;
+        Long max3 = Long.MIN_VALUE;
+        Long min1 = Long.MAX_VALUE;
+        Long min2 = Long.MAX_VALUE;
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] >= max1) {
+                max3 = max2;
+                max2 = max1;
+                max1 = a[i];
+            } else if (a[i] >= max2) {
+                max3 = max2;
+                max2 = a[i];
+            } else if (a[i] >= max3) {
+                max3 = a[i];
+            }
+
+            if (a[i] <= min1) {
+                min2 = min1;
+                min1 = a[i];
+            } else if (a[i] <= min2) {
+                min2 = a[i];
+            }
+            }
+//        System.out.println(
+//                max1 + " "  + max2 + " "  + max3
+//        );
+//        System.out.println(
+//                max1 + " "  + min1 + " "  + min2
+//        );
+        return Math.max(
+                max1 * max2 * max3,
+                max1 * min1 * min2
+        );
+    }
+
     public static void main(String[] args) throws IOException {
 //        System.out.println(solve(new Long[]{3L, 4L, 1L, 2L}));
 //        System.out.println(solve(new Long[]{0, 4, 1, 2}));
@@ -83,7 +123,7 @@ public class LargestMul {
             for (int i = 0; i < line.length; i++) {
                 a[i] = Long.valueOf(line[i]);
             }
-            System.out.println(solve(a));
+            System.out.println(solveNew(a));
 //        }
     }
 }
