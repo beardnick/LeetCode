@@ -2,8 +2,7 @@ package practice;
 
 import java.util.*;
 
-public class PickGoodNumber {
-
+public class SameHeightBuildings {
 
     public static TreeMap<Integer, Integer> count ;
 
@@ -33,7 +32,7 @@ public class PickGoodNumber {
                 building.put(x.getValue(), tmp);
             }
         }
-//        Object[] heightList =  heightSet.toArray();
+        Object[] heightList =  heightSet.toArray();
         int minist = Integer.MAX_VALUE;
         while (!building.isEmpty()) {
             Object[] last =  building.lastEntry().getValue().toArray();
@@ -43,17 +42,15 @@ public class PickGoodNumber {
                 if (count.get(current) < number) {
                     int sum = 0;
                     int rest = number - count.get(current);
-                    for (int j = current - 1, k = current + 1; j >= 0 && k <= 9 ; j--, k++) {
+                    for (int j = start - 1; j >= 0 ; j--) {
 //                        System.out.printf("height:%d\n",(Integer)heightList[j]);
-                        if (count.containsKey(j) && ) {
-                            if (count.get(j) < rest) {
-                                sum += ((current - j) * count.get(j));
-                                rest -= count.get(j);
-                            } else {
-                                sum += ((current - j * rest);
-                                rest = 0;
-                                break;
-                            }
+                        if (count.get(heightList[j]) < rest) {
+                            sum += ((current - (Integer)heightList[j]) * count.get(heightList[i]));
+                            rest -= count.get(heightList[i]);
+                        }else{
+                            sum += ((current - (Integer)heightList[j])  * rest);
+                            rest = 0;
+                            break;
                         }
                     }
                     if (rest != 0) {
@@ -80,10 +77,9 @@ public class PickGoodNumber {
         while (sc.hasNext()) {
             int m = sc.nextInt();
             int n = sc.nextInt();
-            char[] temp = sc.nextLine().toCharArray();
-            int[] a = new int[temp.length];
-            for (int i = 0; i < temp.length; i++) {
-                a[i] = temp[i] - '0';
+            int[] a = new int[m];
+            for (int i = 0; i < m; i++) {
+                a[i] = sc.nextInt();
             }
             System.out.println(solution(n, a));
         }

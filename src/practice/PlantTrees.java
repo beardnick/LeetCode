@@ -1,5 +1,7 @@
 package practice;
 
+import com.sun.xml.internal.bind.v2.TODO;
+
 import java.util.Scanner;
 
 public class PlantTrees {
@@ -9,6 +11,8 @@ public class PlantTrees {
     private static  int[] nums;
     private static int[] list;
     private static boolean solved;
+
+    // TODO: 19-5-8 如果最多的树的数量大于总数量的1/2就剪枝
 
     public static int[] solution(int n, int[] a) {
        types = n;
