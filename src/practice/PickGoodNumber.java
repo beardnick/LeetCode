@@ -39,28 +39,80 @@ public class PickGoodNumber {
             Object[] last =  building.lastEntry().getValue().toArray();
             for (int i = last.length -1; i >= 0  ; i--) {
                 int current = (Integer)last[i];
-                int start = Arrays.binarySearch(heightList, current);
+//                int start = Arrays.binarySearch(heightList, current);
                 if (count.get(current) < number) {
                     int sum = 0;
                     int rest = number - count.get(current);
                     for (int j = current - 1, k = current + 1; j >= 0 && k <= 9 ; j--, k++) {
+                        System.out.printf("current:%d\n", current);
 //                        System.out.printf("height:%d\n",(Integer)heightList[j]);
-                        if (count.containsKey(j) && ) {
+                        if (count.containsKey(j) && count.containsKey(k)) {
+                            if (count.get(j) + count.get(k) > rest) {
+                                if (count.get(j) > count.get(k)) {
+                                    if (count.get(j) < rest) {
+                                        sum += ((current - j) * count.get(j));
+                                        rest -= count.get(j);
+                                    } else {
+                                        sum += ((current - j) * rest);
+                                        rest = 0;
+                                        break;
+                                    }
+                                    if (count.get(k) < rest) {
+                                        sum += (k - current) * count.get(k);
+                                        rest -= count.get(k);
+                                    } else {
+                                        sum += ((k - current )* rest);
+                                        rest = 0;
+                                        break;
+                                    }
+                                } else {
+
+                                    if (count.get(k) < rest) {
+                                        sum += (k - current) * count.get(k);
+                                        rest -= count.get(k);
+                                    } else {
+                                        sum += ((k - current) * rest);
+                                        rest = 0;
+                                        break;
+                                    }
+
+                                    if (count.get(j) < rest) {
+                                        sum += (current - j) * count.get(j);
+                                        rest -= count.get(j);
+                                    } else {
+                                        sum += ((current - j )* rest);
+                                        rest = 0;
+                                        break;
+                                    }
+                                }
+                            }
+                        } else if (count.containsKey(j)) {
                             if (count.get(j) < rest) {
-                                sum += ((current - j) * count.get(j));
+                                sum += (current - j) * count.get(j);
                                 rest -= count.get(j);
                             } else {
-                                sum += ((current - j * rest);
+                                sum += ((current - j )* rest);
+                                rest = 0;
+                                break;
+                            }
+
+                        } else if (count.containsKey(k)) {
+                            if (count.get(k) < rest) {
+                                sum += (k - current) * count.get(k);
+                                rest -= count.get(k);
+                            } else {
+                                sum += ((k - current) * rest);
                                 rest = 0;
                                 break;
                             }
                         }
+
                     }
                     if (rest != 0) {
                         continue;
                     }
                     minist = Math.min(minist, sum);
-//                    System.out.printf("minist:%d\n", minist);
+                    System.out.printf("minist:%d\n", minist);
                 } else {
                     return 0;
                 }
@@ -75,18 +127,18 @@ public class PickGoodNumber {
     public static void main(String[] args) {
 //        5 3
 //        1 1 2 3 3
-//        System.out.println(solution(3, new int[]{1, 1, 2, 3, 3}));
-        Scanner sc = new Scanner(System.in);
-        while (sc.hasNext()) {
-            int m = sc.nextInt();
-            int n = sc.nextInt();
-            char[] temp = sc.nextLine().toCharArray();
-            int[] a = new int[temp.length];
-            for (int i = 0; i < temp.length; i++) {
-                a[i] = temp[i] - '0';
-            }
-            System.out.println(solution(n, a));
-        }
+        System.out.println(solution(5, new int[]{7,8,7,5,8,5}  ));
+//        Scanner sc = new Scanner(System.in);
+//        while (sc.hasNext()) {
+//            int m = sc.nextInt();
+//            int n = sc.nextInt();
+//            char[] temp = sc.nextLine().toCharArray();
+//            int[] a = new int[temp.length];
+//            for (int i = 0; i < temp.length; i++) {
+//                a[i] = temp[i] - '0';
+//            }
+//            System.out.println(solution(n, a));
+//        }
     }
 
 }
