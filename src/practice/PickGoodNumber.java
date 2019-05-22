@@ -11,6 +11,8 @@ public class PickGoodNumber {
 
     public static TreeSet<Integer>  heightSet ;
 
+    // TODO: 19-5-21 代码太丑了，重构一下 
+
     public static int solution(int number, int[] heights) {
         count = new TreeMap<>();
         building = new TreeMap<>();
