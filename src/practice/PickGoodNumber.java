@@ -6,9 +6,7 @@ import java.util.stream.Stream;
 public class PickGoodNumber {
 
 
-
-
-    public static Map.Entry<Integer, int[]> solution(int n, int[] arr) {
+    public static  int solution(int n, int[] arr) {
         Map<Integer, Integer> count = new HashMap<>();
         Set<Integer> nums = new HashSet<>();
         for (int x : arr) {
@@ -19,76 +17,96 @@ public class PickGoodNumber {
                 count.put(x, 1);
             }
         }
-        TreeMap<Integer, int[]> res = new TreeMap<>();
-        for (int x : arr) {
+        TreeMap<Integer, Integer> res = new TreeMap<>();
+        for (int x : nums) {
             if (count.get(x) >= n) {
-                res.put(0, arr);
-                return res.firstEntry();
+                return 0;
             } else {
                 int sub = 1;
                 int rest = n - count.get(x);
                 int cost = 0;
-                int[] tmp = Arrays.copyOf(arr, arr.length);
                 while (rest != 0) {
-//                    由大改小从前往后,保证字典序最小
-                    for (int i = 0; i < arr.length; i++) {
-                        if (tmp[i] - sub == x) {
-                            tmp[i] = x;
-                            cost += sub;
-//                            System.out.println("sub:" + sub + " " + Arrays.toString(tmp));
-                            if ((--rest) == 0) {
-                                break;
-                            }
-                        }
+                    int f = 0;
+                    if (count.containsKey(x + sub)) {
+                        f += count.get(x + sub);
                     }
-
-//                    由小改大从后往前,保证字典序最小
-                    for (int i = arr.length - 1; i >= 0; i--) {
-                        if (tmp[i] + sub == x) {
-                            tmp[i] = x;
-                            cost += sub;
-//                            System.out.println("sub:" + sub + " " + Arrays.toString(tmp));
-                            if ((--rest) == 0) {
-                                break;
-                            }
-                        }
+                    if (count.containsKey(x - sub)) {
+                        f += count.get(x - sub);
                     }
-
-                    sub ++;
+//                    System.out.println( "x:" + x + "rest:" + rest + " " + "f:" + f );
+                    if (f >= rest) {
+                        cost += rest * sub;
+                        break;
+                    } else {
+                        rest -= f;
+                        cost += f * sub;
+                    }
+                    if (res.size() != 0 && cost > res.firstEntry().getKey()) {
+                        break;
+                    }
+                    sub++;
+                    if (sub >= 10) {
+                        break;
+                    }
                 }
-                res.put(cost, tmp);
+                res.put(cost, x);
             }
         }
-        return res.firstEntry();
+        int sub = 1;
+        int rest = n - count.get(res.firstEntry().getValue());
+        int x = res.firstEntry().getValue();
+        while (rest != 0) {
+            //                    由大改小从前往后,保证字典序最小
+            for (int i = 0; i < arr.length; i++) {
+                if (arr[i] - sub == x) {
+                    arr[i] = x;
+                    //                            System.out.println("sub:" + sub + " " + Arrays.toString(tmp));
+                    if ((--rest) == 0) {
+                        break;
+                    }
+                }
+            }
+            //                    由小改大从后往前,保证字典序最小
+            for (int i = arr.length - 1; i >= 0; i--) {
+                if (arr[i] + sub == x) {
+                    arr[i] = x;
+                    //                            System.out.println("sub:" + sub + " " + Arrays.toString(tmp));
+                    if ((--rest) == 0) {
+                        break;
+                    }
+                }
+            }
+            sub ++;
+            if (sub >= 10) {
+                break;
+            }
+        }
+        return res.firstKey();
     }
 
 
-
-    public static void main(String[] args) {
+            public static void main (String[]args){
 //        5 3
 //        1 1 2 3 3
 //        Map.Entry<Integer, int[]> res = solution(5, new int[]{7, 8, 7, 5, 8, 5});
 //        System.out.println(res.getKey());
 //        System.out.println(Arrays.toString(res.getValue()));
-        Scanner sc = new Scanner(System.in);
-        while (sc.hasNext()) {
-            int m = sc.nextInt();
-            int n = sc.nextInt();
+                Scanner sc = new Scanner(System.in);
+                while (sc.hasNext()) {
+                    int m = sc.nextInt();
+                    int n = sc.nextInt();
 //            System.out.println("m:" + m + "n:" + n);
-            char[] temp = sc.next().toCharArray();
-            int[] a = new int[temp.length];
-            for (int i = 0; i < temp.length; i++) {
-                a[i] = temp[i] - '0';
+                    char[] temp = sc.next().toCharArray();
+                    int[] a = new int[temp.length];
+                    for (int i = 0; i < temp.length; i++) {
+                        a[i] = temp[i] - '0';
+                    }
+                    System.out.println(solution(n, a));
+                    final StringBuilder sb = new StringBuilder();
+                    for (int x : a) {
+                        sb.append("" + x);
+                    }
+                    System.out.println(sb.toString());
+                }
             }
-//            System.out.println(Arrays.toString(a));
-        Map.Entry<Integer, int[]> res = solution(n, a);
-            System.out.println(res.getKey());
-            final  StringBuilder sb = new StringBuilder();
-            for (int x :
-                    res.getValue()) {
-                sb.append("" + x);
-            }
-            System.out.println(sb.toString());
         }
-    }
-}
