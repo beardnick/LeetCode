@@ -3,12 +3,14 @@ package practice;
 import java.util.*;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.*;
+
 public class PickGoodNumber {
 
 
     public static  int solution(int n, int[] arr) {
         Map<Integer, Integer> count = new HashMap<>();
-        Set<Integer> nums = new HashSet<>();
+        TreeSet<Integer> nums = new TreeSet<>();
         for (int x : arr) {
             nums.add(x);
             if (count.containsKey(x)) {
@@ -18,7 +20,7 @@ public class PickGoodNumber {
             }
         }
         TreeMap<Integer, Integer> res = new TreeMap<>();
-        for (int x : nums) {
+        for (int x : nums.descendingSet()) {
             if (count.get(x) >= n) {
                 return 0;
             } else {
@@ -33,7 +35,7 @@ public class PickGoodNumber {
                     if (count.containsKey(x - sub)) {
                         f += count.get(x - sub);
                     }
-//                    System.out.println( "x:" + x + "rest:" + rest + " " + "f:" + f );
+                    System.out.println( "x:" + x + "rest:" + rest + " " + "f:" + f );
                     if (f >= rest) {
                         cost += rest * sub;
                         break;
@@ -95,7 +97,7 @@ public class PickGoodNumber {
                 while (sc.hasNext()) {
                     int m = sc.nextInt();
                     int n = sc.nextInt();
-//            System.out.println("m:" + m + "n:" + n);
+            System.out.println("m:" + m + "n:" + n);
                     char[] temp = sc.next().toCharArray();
                     int[] a = new int[temp.length];
                     for (int i = 0; i < temp.length; i++) {
