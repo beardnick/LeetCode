@@ -7,3 +7,7 @@ out/
 .attach_pid*
 
 .vscode
+
+Test*
+
+test*

@@ -105,7 +105,7 @@ public class PickGoodNumber {
                     }
                     System.out.println(solution(n, a));
                     final StringBuilder sb = new StringBuilder();
-                    for (int x : a) {
+                   for (int x : a) {
                         sb.append("" + x);
                     }
                     System.out.println(sb.toString());
