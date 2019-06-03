@@ -1,9 +1,6 @@
 package practice;
 
-import org.omg.CORBA.INTERNAL;
-
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class PatternExtract {
