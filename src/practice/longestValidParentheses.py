@@ -1,44 +1,28 @@
 # -*- coding: utf-8 -*- 
 def longestValidParentheses(s: str) -> int:
-        # stack = list(str)
+        if len(s) < 2:
+            return 0
+        longest = - (1 << 60)
         stack = []
-        longest = -(1<<60)
-        thiscnt = 0
-        lastcnt = 0
-        for i in s:
-            if i == ')':
+        indexStack = []
+        dp = []
+        for i in range(len(s)):
+            dp.append(0)
+            if s[i] == ')':
                 if len(stack) > 0 and stack[-1] == '(':
+                    # longest = max(longest, i - indexStack[-1] + 1)
+                    dp[i] = dp[indexStack[-1] - 1] + i - indexStack[-1] + 1
+                    longest = max(longest, dp[i])
+                if len(stack) > 0:
                     stack.pop()
-                    thiscnt += 1
-                # else:
-                #     longest = max(longest,cnt)  - len(stack)
-                #     stack = []
-                #     cnt = 0
-                if len(stack) != 0:
-                    longest = max(longest, thiscnt - len(stack))
-                else:
-                    longest = max(thiscnt + lastcnt, longest)
-                # print("len of stack :" , len(stack))
-                # print("thiscnt :" , thiscnt)
-                # print("lastcnt :" , lastcnt)
-                # print("longest :" , longest)
-                lastcnt = thiscnt - len(stack)
-                stack = []
-                thiscnt = 0
+                    indexStack.pop()
             else:
-                stack.append(i)
-                thiscnt +=1
-        # print("len of stack :" , len(stack))
-        # print("thiscnt :" , thiscnt)
-        # print("lastcnt :" , lastcnt)
-        # print("longest :" , longest)
-        if len(stack) != 0:
-            longest = max(longest, thiscnt - len(stack))
-        else:
-            longest = max(thiscnt + lastcnt, longest)
-        return longest
-                 
+                stack.append(s[i])
+                indexStack.append(i)
+        return longest if longest != - (1 << 60) else 0
+        
 print(longestValidParentheses("(()"))
+print(longestValidParentheses(""))
 print(longestValidParentheses("(()()"))
 print(longestValidParentheses(")()())"))
 print(longestValidParentheses("())))"))
