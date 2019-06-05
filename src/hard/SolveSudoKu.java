@@ -20,7 +20,7 @@ public class SolveSudoKu {
     public  HashSet<Character>[] boxSet;
 
 
-    public  boolean dfs(char[][] board) {
+    private   boolean dfs(char[][] board) {
 //        display(board);
 //        System.out.println("- - - - - - - - - - - - - - - - - -");
         boolean finished = true;
@@ -37,7 +37,7 @@ public class SolveSudoKu {
         }
             for (int i = 0; i < 9; i++) {
                 for (int j = 0; j < 9; j++) {
-                    if (board[i][j] == '-') {
+                    if (board[i][j] == '.') {
                         for (int k = 1; k < 10; k++) {
                             char cur = (char) (k + '0');
                             if (!rowSet[i].contains(cur) &&
@@ -50,7 +50,7 @@ public class SolveSudoKu {
                                 if(dfs(board)){
                                     return true;
                                 }
-                                board[i][j] ='-';
+                                board[i][j] ='.';
                                 rowSet[i].remove(cur);
                                 colSet[j].remove(cur);
                                 boxSet[j / 3 + i / 3 * 3].remove(cur);
@@ -66,7 +66,7 @@ public class SolveSudoKu {
     public  void solveSudoku(char[][] board) {
         rowSet = new HashSet[9];
         colSet = new HashSet[9];
-        boxSet = new HashSet[9];
+            boxSet = new HashSet[9];
         for (int i = 0; i < 9; i++) {
             rowSet[i] = new HashSet<>();
             colSet[i] = new HashSet<>();
@@ -74,7 +74,7 @@ public class SolveSudoKu {
         }
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                if (board[i][j] != '-') {
+                if (board[i][j] != '.') {
                     char cur = board[i][j];
                     rowSet[i].add(cur);
                     colSet[j].add(cur);
@@ -88,16 +88,17 @@ public class SolveSudoKu {
 
     public static void main(String[] args) {
         SolveSudoKu solveSudoKu = new SolveSudoKu();
+        // #IMP 19-6-5 有毒呀，把.看成了-，浪费了我大半天
         char[][] board = new char[][] {
-                {'5','3','-','-','7','-','-','-','-'},
-                {'6','-','-','1','9','5','-','-','-'},
-                {'-','9','8','-','-','-','-','6','-'},
-                {'8','-','-','-','6','-','-','-','3'},
-                {'4','-','-','8','-','3','-','-','1'},
-                {'7','-','-','-','2','-','-','-','6'},
-                {'-','6','-','-','-','-','2','8','-'},
-                {'-','-','-','4','1','9','-','-','5'},
-                {'-','-','-','-','8','-','-','7','9'}
+                {'5','3','.','.','7','.','.','.','.'},
+                {'6','.','.','1','9','5','.','.','.'},
+                {'.','9','8','.','.','.','.','6','.'},
+                {'8','.','.','.','6','.','.','.','3'},
+                {'4','.','.','8','.','3','.','.','1'},
+                {'7','.','.','.','2','.','.','.','6'},
+                {'.','6','.','.','.','.','2','8','.'},
+                {'.','.','.','4','1','9','.','.','5'},
+                {'.','.','.','.','8','.','.','7','9'}
         };
         solveSudoKu.solveSudoku( board );
         display(board);
