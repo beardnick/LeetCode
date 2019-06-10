@@ -50,9 +50,9 @@ public class SaveWater {
 //        boolean sizeChanged = true;
 //        while (sizeChanged) {
 //            sizeChanged = false;
-        System.out.println("tops:" + tops);
+//        System.out.println("tops:" + tops);
             for (int i = 1; i < tops.size() - 1; i++) {
-                if (height[tops.get(i)] < height[tops.get(i - 1)] && height[tops.get(i)] < height[tops.get(i + 1)]) {
+                if (height[tops.get(i)] <= height[tops.get(i - 1)] && height[tops.get(i)] <= height[tops.get(i + 1)]) {
                     tops.remove(i);
 //                    sizeChanged = true;
                     i = (i == 1 ? i - 1 : i - 2);
@@ -60,7 +60,7 @@ public class SaveWater {
             }
 //        }
 
-        System.out.println("tops:" + tops);
+//        System.out.println("tops:" + tops);
         for (int i = 0; i < tops.size() - 1 ; i++) {
             int left = tops.get(i);
             int right = tops.get(i + 1);
@@ -78,13 +78,13 @@ public class SaveWater {
         return result;
     }
     public static void main(String[] args) {
-//        System.out.println(trap(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}) == 6);
-//        System.out.println(trap(new int[]{1,0,2,1,0,1,3,2,1,2}) == 6);
-//        System.out.println(trap(new int[]{2,1,0,1,3,2,1,2,1}) == 5);
-//        System.out.println(trap(null) == 0);
-//        System.out.println(trap(new int[]{1,1,1}) == 0);
-//        System.out.println(trap(new int[]{3, 2, 0, 1, 4, 6}) == 6);
-//        System.out.println(trap(new int[]{4, 0, 2, 0, 4}) == 10);
+        System.out.println(trap(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}) == 6);
+        System.out.println(trap(new int[]{1,0,2,1,0,1,3,2,1,2}) == 6);
+        System.out.println(trap(new int[]{2,1,0,1,3,2,1,2,1}) == 5);
+        System.out.println(trap(null) == 0);
+        System.out.println(trap(new int[]{1,1,1}) == 0);
+        System.out.println(trap(new int[]{3, 2, 0, 1, 4, 6}) == 6);
+        System.out.println(trap(new int[]{4, 0, 2, 0, 4}) == 10);
         System.out.println(trap(new int[]{6,4,2,0,3,2,0,3,1,4,5,3,2,7,5,3,0,1,2,1,3,4,6,8,1,3}) == 83);
     }
 }
